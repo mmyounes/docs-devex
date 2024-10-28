@@ -28,36 +28,39 @@ Configure an entire collection type mapping to add or remove all documents in th
 
 You can add <<object,JSON object mappings>>, an <<xattrs,Extended Attributes (XATTRs) mapping>>, or <<field,field type mappings>> for objects and fields inside your collection to change your collection type mapping from a xref:customize-index.adoc#dynamic[dynamic mapping] to a xref:customize-index.adoc#static[static mapping].
 
-You can configure the following settings for a type mapping that uses an entire collection: 
+You can configure the following options for a type mapping that uses an entire collection: 
 
 |====
-|Option |Formerly Known As |Description 
+|Option |Description 
 
 | Index everything from collection: "`$COLLECTION_NAME`" 
-a| In Quick Mode: Index everything from collection: "`$COLLECTION_NAME`" 
-
-In Advanced Mode: Leaving *Only index specified fields* unchecked
 a| You must select *Index everything from collection* to add a collection type mapping. 
 
 The Search Service adds all documents inside the selected collection to your Search index.
 
-| Use keyword analyzer for text 
-a| In Quick Mode: *Index text fields as identifiers*
+In the previous version of the Search Service UI, this option was the same as leaving *Only index specified fields* unchecked in Advanced Mode.
 
-In Advanced Mode: Not available
+It was not available in Quick Mode.
+
+| Use keyword analyzer for text 
 a| To index any *Text* type fields inside this collection with the xref:default-analyzers-reference.adoc#keyword[keyword analyzer], select *Use keyword analyzer for text*. 
 
 To use other analyzers on text fields, clear *Use keyword analyzer for text*. 
 
 For more information about analyzers, see xref:customize-index.adoc#analyzers[Search Index Features].
 
-|Analyzer/Language 
-a| In Quick Mode: *Analyzer/Language*
+In the previous version of the Search Service UI, this option was named *Index text fields as identifiers* in Quick Mode.
 
-In Advanced Mode: *Default Analyzer*
+It was not available in Advanced Mode.
+
+|Analyzer/Language 
 a| If you do not select *Use keyword analyzer for text*, use the *Analyzer/Language* list to select an analyzer to use or the language of any content inside *Text* fields in the collection. 
 
 For more information about the available language and analyzer options, see xref:default-analyzers-reference.adoc[].
+
+In the previous version of the Search Service UI, this option was named *Analyzer/Language* in Quick Mode. 
+
+In Advanced Mode, it was named *Default Analyzer*.
 
 |====
 
@@ -72,29 +75,32 @@ You can add <<field,a field type mapping>> for any fields under a JSON object to
 You can configure the following options for a JSON object mapping: 
 
 |====
-|Option |Formerly Known As |Description
+|Option |Description
 
 | Index everything under: "`$OBJECT_NAME`" 
-a| Not available.
 a| Select *Index everything under* to create a xref:customize-index.adoc#dynamic[dynamic] object mapping in your Search index. 
 
 The Search Service adds all document fields inside the object to your Search index.
 
+In the previous version of the Search Service UI, this option was not available.
+
 | Use keyword analyzer for text 
-a| Not available.
 a| To index any *Text* type fields inside this object with the xref:default-analyzers-reference.adoc#keyword[keyword analyzer], select *Use keyword analyzer for text*. 
 
 To use other analyzers on text fields, clear *Use keyword analyzer for text*. 
 
 For more information about analyzers, see xref:customize-index.adoc#analyzers[Search Index Features].
 
-|Analyzer/Language 
-a| In Quick Mode: *Analyzer/Language*
+In the previous version of the Search Service UI, this option was not available for object mappings.
 
-In Advanced Mode: *Default Analyzer*
+|Analyzer/Language 
 a| If you do not select *Use keyword analyzer for text*, use the *Analyzer/Language* list to select the analyzer or language for the content inside any *Text* fields. 
 
 For more information about the available language and analyzer options, see xref:default-analyzers-reference.adoc[].
+
+In the previous version of the Search Service UI, this option was named *Analyzer/Language* in Quick Mode. 
+
+In Advanced Mode, it was named *Default Analyzer*.
 
 |====
 
@@ -111,25 +117,25 @@ You can only configure 1 XATTRs mapping for each collection in your Search index
 You can configure the following options for an XATTRs mapping: 
 
 |====
-|Option |Formerly Known As |Description 
+|Option |Description 
 
 | Index everything under: "`$xattrs`" 
-a| In Quick Mode: Not available 
-
-In Advanced Mode: Leaving *Only index specified fields* unchecked
 a| Select *Index everything under: "$xattrs"* to create a xref:customize-index.adoc#dynamic[dynamic] XATTRs mapping in your Search index. 
 
 The Search Service adds all metadata fields inside the XATTRs object to your Search index.
 
-| Use keyword analyzer for text (Text Fields Only) 
-a| In Quick Mode: Not available 
+In the previous version of the Search Service UI, this option was the same as leaving *Only index specified fields* unchecked in Advanced Mode.
 
-In Advanced Mode: Not available
+This option was not available in Quick Mode.
+
+| Use keyword analyzer for text (Text Fields Only) 
 a| To index this field with the xref:default-analyzers-reference.adoc#keyword[keyword analyzer], select *Use keyword analyzer for text*. 
 
 To use other analyzers on this text field, clear *Use keyword analyzer for text*. 
 
 For more information about analyzers, see xref:customize-index.adoc#analyzers.adoc[Search Index Features].
+
+In the previous version of the Search Service UI, this option was not available for XATTRs mappings.
 
 // |Include in search results 
 // |
@@ -162,68 +168,72 @@ For more information about analyzers, see xref:customize-index.adoc#analyzers.ad
 
 Configure a single field type mapping to add or remove that field from your Search index.
 
-You can configure the following settings for a type mapping that uses a single field: 
+You can configure the following options for a type mapping that uses a single field: 
 
-[cols="1,1,2"]
 |====
-|Option |Formerly Known As |Description 
+|Option |Description 
 
 | Type 
-| In Quick Mode and Advanced Mode: *Type*
 a| Set the data type of the contents of the field. 
 
-The *Type* you choose changes the settings you have available for that field. 
+The *Type* you choose changes the options you have available for that field. 
 
 For more information about the available field data types, see xref:field-data-types-reference.adoc[].
 
+In the previous version of the Search Service UI, this option had the same name.
+
 |Searchable As 
-| In Quick Mode and Advanced Mode: *Searchable As*
 a| Set a different name that you can use to search the field's contents in a query. 
 
 The default value is the field's name.
 
-| Use keyword analyzer for text (Text Fields Only) 
-a| In Quick Mode: *Index this field as an identifier*
+In the previous version of the Search Service UI, this option had the same name.
 
-In Advanced Mode: Not available
+| Use keyword analyzer for text (Text Fields Only) 
 a|To index this field with the xref:default-analyzers-reference.adoc#keyword[keyword analyzer], select *Use keyword analyzer for text*. 
 
 To use other analyzers on this text field, clear *Use keyword analyzer for text*. 
 
 For more information about analyzers, see xref:customize-index.adoc#analyzers.adoc[Search Index Features].
 
-|Analyzer/Language (Text Fields Only) 
-a| In Quick Mode: *Analyzer/Language*
+In the previous version of the Search Service UI, this option was named *Index this field as an identifier* in Quick Mode.
 
-In Advanced Mode: *Default Analyzer*
+This option was not available in Advanced Mode.
+
+|Analyzer/Language (Text Fields Only) 
 a| If you do not select *Use keyword analyzer for text*, use the *Analyzer/Language* list to select the analyzer or language for the content inside any *Text* fields. 
 
 For more information about the available language and analyzer options, see xref:default-analyzers-reference.adoc[].
 
+In the previous version of the Search Service UI, this option was named *Analyzer/Language* in Quick Mode. 
+
+In Advanced Mode, it was named *Default Analyzer*.
+
 |[[dimension]]Dimension (Vector Fields Only) 
-| In Quick Mode and Advanced Mode: *Dimension*
 a| include::partial$vector-search-field-descriptions.adoc[tag=dimension]
 
+In the previous version of the Search Service UI, this option had the same name.
+
 |Similarity Metric (Vector Fields Only) 
-| In Quick Mode and Advanced Mode: *Similarity Metric*
 a| include::partial$vector-search-field-descriptions.adoc[tag=similarity_metric]
 
+In the previous version of the Search Service UI, this option had the same name.
+
 |Optimized For (Vector Fields Only) 
-| In Quick Mode and Advanced Mode: *Optimized For*
 a| include::partial$vector-search-field-descriptions.adoc[tag=optimized_for]
 
-|Include in search results 
-a| In Quick Mode: *Include in search results*
+In the previous version of the Search Service UI, this option had the same name.
 
-In Advanced Mode: *Store*
+|Include in search results 
 a| To include content from the field in search results, select *Include in search results*. 
 
 To exclude the field's content from search results, clear *Include in search results*. 
 
-// |Support highlighting 
-// a| In Quick Mode: *Support highlighting*
+In the previous version of the Search Service UI, this option was named *Include in search results* in Quick Mode.
 
-// In Advanced Mode: *Include Term Vectors* and *Store*
+In Advanced mode, it was named *Store*. 
+
+// |Support highlighting 
 // a| The Search Service can highlight matching search terms in search results from an index. 
 
 // To enable highlighting in search results, select *Support highlighting*. 
@@ -232,30 +242,37 @@ To exclude the field's content from search results, clear *Include in search res
 
 // NOTE: To enable *Support highlighting*, you must also enable *Include in search results*.
 
-|Support phrase matching 
-a| In Quick Mode: *Support phrase matching*
+// In the previous version of the Search Service UI, this option was named *Support highlighting* in Quick Mode.
+// In Advanced mode, this was not available as a single option.
+// You needed to turn on both *Include Term Vectors* and *Store*. 
 
-In Advanced Mode: *Include Term Vectors*
+|Support phrase matching 
 a| To support searches for whole phrases, select *Support phrase matching*. 
 
 To turn off phrase matching, clear *Support phrase matching*.
 
 NOTE: To enable *Support phrase matching*, you must also enable *Include in search results*.
 
-|Support field agnostic search 
-a| In Quick Mode: *Support field agnostic search*
+In the previous version of the Search Service UI, this option was named *Support phrase matching* in Quick Mode.
 
-In Advanced Mode: *Include in _all field*
+In Advanced Mode, it was named *Include Term Vectors*.
+
+|Support field agnostic search 
 a|To search the field's contents without specifying the field name in a search query, select *Support field agnostic search*. 
 
-To turn off field agnostic search, clear *Support field agnostic search*. 
+To turn off field agnostic search, clear *Support field agnostic search*.
+
+In the previous version of the Search Service UI, this option was named *Support field agnostic search* in Quick Mode.
+
+In Advanced Mode, it was named *Include in _all field*.
 
 |Support sorting and faceting 
-a| In Quick Mode: *Support sorting and faceting*
-
-In Advanced Mode: *Doc Values*
 a| To support sorting search results based on this field and use xref:search-request-params.adoc#facets[facets] with the field's contents, select *Support sorting and faceting*. 
 
 To turn off sorting and facets, clear *Support sorting and faceting*. 
+
+In the previous version of the Search Service UI, this option was named *Support sorting and faceting* in Quick Mode.
+
+In Advanced Mode, it was named *Doc Values*.
 
 |====
