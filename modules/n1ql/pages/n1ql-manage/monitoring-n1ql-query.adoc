@@ -1,5 +1,6 @@
 = Manage and Monitor Queries
 :example-caption!:
+:alt-markdown-links:
 :description: Monitoring and profiling {sqlpp} queries, query service nodes, and corresponding system resources is very important for smoother operational performance and efficiency of the system.
 
 ifdef::basebackend-html[]
@@ -941,6 +942,7 @@ ifdef::flag-devex-rest-api[]
 endif::flag-devex-rest-api[]
 * At the <<enable-settings-per-session-or-per-query,request level>>, for individual queries.
 
+[[client_context_id]]
 For more information about Query settings and parameters, see xref:n1ql:n1ql-manage/query-settings.adoc[].
 
 ifdef::flag-devex-rest-api[]
