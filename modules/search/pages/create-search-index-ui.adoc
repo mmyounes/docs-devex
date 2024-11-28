@@ -32,7 +32,7 @@ To the {page-ui-name} to create a Search index:
 . On the *Operational Clusters* page, select the operational cluster where you want to create a Search index. 
 . Go to menu:Data Tools[Search].
 . Click btn:[Create Search Index].
-. (Optional) To add additional customization options to your Search index, click btn:[Enable Advanced Options].
+. (Optional) To add additional customization options to your Search index, click btn:[Enable Advanced Mode].
 . In the *Index Name* field, enter a name for the Search index. 
 +
 [NOTE]
@@ -49,37 +49,88 @@ You cannot have 2 indexes with the same name inside the same bucket and scope.
 If you select specific collections, you can only use documents from these collections in your Search index.
 . <<add-mapping,Add at least 1 mapping or type mapping>>.
 . (Optional) <<configure-settings,Configure Global Index settings>>.
+. (Optional) Expand *Replicas & Partitions* and configure your *Number of Replicas* and *Number of Partitions*. 
++
+For more information, see xref:customize-index.adoc#replica[Replica and Partition Settings].
 . Click btn:[Create Index].
 
 [#add-mapping]
 === Add Type Mappings and Mappings
 
-You must add at least 1 mapping or type mapping to your Search index. 
+You must add at least 1 mapping or type mapping to your Search index.
 
-To create a new type mapping or mapping: 
+You can create a mapping or type mapping for: 
 
-. Under *Type Mappings*, do one of the following to add existing collections, objects, or fields to your index: 
-.. To add an entire collection as a new type mapping, click a collection name and xref:type-mapping-options.adoc#collection[configure your type mapping options].
-.. To add Extended Attributes (XATTRs) document metadata as a new mapping, expand a collection, then click btn:["__$xattrs"] and xref:type-mapping-options.adoc#xattrs[configure your mapping options].
-.. To add an entire JSON object from your documents as a new mapping, expand a collection, then click an object from your document schema and xref:type-mapping-options.adoc#object[configure your mapping options].
-.. To add only a single field from your documents as a new type mapping, expand a collection, then click a field from your document schema and xref:type-mapping-options.adoc#field[configure your type mapping options].
-. To add the new type mapping or mapping to your index, click btn:[Add To Index].
+* <<collection,Collections>>
+* <<xattrs,Extended Attributes (XATTRs)>>
+* <<object,JSON objects>>
+* <<field,Single document fields>>
+* <<future,A field or object that does not yet exist in your documents>>
 
+You can choose to turn a type mapping or mapping off to remove all documents that match that mapping from your Search index.
+See <<disable-mapping,>>.
+
+[#collection]
+==== Add a Collection Type Mapping 
+
+To add an entire collection as a new type mapping: 
+
+. In the *Choose a Collection or Document Field* panel, click a collection name.
+. xref:type-mapping-options.adoc#collection[Configure your type mapping options].
+. Click btn:[Add To Index].
+
+[#xattrs]
+==== Add an XATTRs Mapping
+
+NOTE: XATTRs mappings can only be created with *Advanced Mode*. 
+
+To add Extended Attributes (XATTRs) document metadata as a new mapping: 
+
+. <<collection,Create a collection type mapping>> for the collection that has documents with XATTRs data. 
+. Under your *Configured Type Mappings*, next to your collection type mapping, click btn:[Add XATTRs]. 
+. xref:type-mapping-options.adoc#xattrs[Configure your mapping options].
+. Click btn:[Add To Index].
+
+[#object]
+==== Add a JSON Object Mapping 
+
+To add an entire JSON object from your documents as a new mapping: 
+
+. In the *Choose a Collection or Document Field* panel, expand a collection. 
+. Inside your displayed document schema, click the name of a JSON object in your documents.
+. xref:type-mapping-options.adoc#object[Configure your mapping options].
+. Click btn:[Add To Index].
+
+[#field]
+==== Add a Single Document Field Mapping 
+
+To add only a single field from your documents as a new mapping:
+
+. In the *Choose a Collection or Document Field* panel, expand a collection.
+. Inside your displayed document schema, click the name of a document field.
+. xref:type-mapping-options.adoc#field[configure your type mapping options].
+. Click btn:[Add To Index].
+
+[#future]
 ==== Add a Mapping or Type Mapping for a Future Object or Field 
+
+NOTE: Mappings for objects that do not yet exist in your documents can only be created in *Advanced Mode*.
 
 You can choose to add a mapping or type mapping for a JSON object or field that does not yet exist in your document schema. 
 
-To add a mapping or type mapping for this type of object or field: 
+To add a mapping or type mapping for a future object or field: 
 
-. Select *Enable Advanced Options*. 
-. Next to *Configured Type Mappings*, click btn:[Add].
-.. Choose whether you want to create a JSON *Object* or a new *Field*.
-.. In the *Property Name* field, enter the name of the JSON object or field.
-.. Configure your xref:type-mapping-options.adoc#object[object mapping] or xref:type-mapping-options.adoc#field[field type mapping] options. 
-.. Click btn:[Add To Index].
+. Select *Enable Advanced Options*.
+. <<collection,Create a collection type mapping>> for the collection that will hold the documents with your future field.
+. Under your *Configured Type Mappings*, next to your collection type mapping, do one of the following:
+.. To create a new JSON Object, click btn:[Add Object].
+.. To create a new field, click btn:[Add Field].
+. In the *Property Name* field, enter the name of the JSON object or field.
+. Configure your xref:type-mapping-options.adoc#object[object mapping] or xref:type-mapping-options.adoc#field[field type mapping] options. 
+. Click btn:[Add To Index].
 
 [#disable-mapping]
-=== Turn a Mapping On or Off 
+==== Turn a Mapping On or Off 
 
 You can turn off a type mapping or mapping to remove any documents that match that type mapping from your Search index.
 These documents will not appear in search results when you run a query on the index. 

@@ -65,7 +65,7 @@ In Advanced Mode, it was named *Default Analyzer*.
 |====
 
 [#object]
-== Object Mapping Options 
+== JSON Object Mapping Options 
 
 Configure a JSON object mapping to add or remove a JSON object from your Search index.
 This JSON object does not currently have to exist in your document schema. 
