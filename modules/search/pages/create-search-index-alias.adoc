@@ -24,11 +24,7 @@ For more information, see xref:create-search-index-ui.adoc[].
 To create a Search index alias with the {page-ui-name}: 
 
 . On the *Operational Clusters* page, select the operational cluster where you want to work with the Search Service. 
-. Go to menu:Data Tools[Search].
 . Click btn:[Create Search Alias].
-. In the *Alias Name* field, enter a name for your Search index alias. 
-. In the *Target Indexes* list, select each Search index that you want to add to the index alias. 
-. Click btn:[Create Alias].
 
 == Next Steps
 

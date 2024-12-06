@@ -33,15 +33,37 @@ ifdef::basebackend-html[]
     width: auto !important;
   }
 
+  /* Wrap inline code in tables */
+  td.tableblock p code,
+  p.tableblock code{
+    overflow-wrap: anywhere;
+  }
+
   /* Do not hyphenate words in the table */
   td.tableblock p,
   p.tableblock{
-    hyphens: manual !important;
+    hyphens: manual;
   }
 
   /* Vertical alignment */
   td.tableblock{
     vertical-align: top !important;
+  }
+
+  /* Spacing for markdown blocks */
+  .doc .openblock > .content > p {
+    margin-top: 1rem;
+  }
+
+  .doc .openblock > .content > ul,
+  .doc .openblock > .content > ol {
+    margin-top: 1.5rem;
+    margin-left: 1rem;
+  }
+
+  .doc .openblock > .content > ul li + li,
+  .doc .openblock > .content > ol li + li {
+    margin-top: 0.5rem;
   }
 </style>
 ++++
@@ -67,7 +89,7 @@ ifdef::flag-devex-rest-api[]
 endif::flag-devex-rest-api[]
 * Use an SDK client program.
 
-Generally, use the `cbq` shell or the Query tab as a sandbox to test queries in your Capella database.
+Generally, use the `cbq` shell or the Query tab as a sandbox to test queries in your Capella cluster.
 Use
 ifdef::flag-devex-rest-api[]
 a REST API call or
@@ -140,7 +162,7 @@ endif::flag-devex-rest-api[]
 The table below contains details of all request-level parameters, along with examples.
 
 .Request-Level Parameters
-include::n1ql:partial$n1ql-rest-api/query/definitions.adoc[tag=settings]
+include::n1ql-rest-query:index.adoc[tag=Request]
 
 [discrete#transactional-scan-consistency]
 ===== Transactional Scan Consistency
@@ -216,7 +238,7 @@ You can supply the values for placeholder parameters using any of the methods us
 ****
 [.status]#Couchbase Server 7.6#
 
-The at sign `@` syntax is only supported in databases running Couchbase Server 7.6.0 or later.
+The at sign `@` syntax is only supported in clusters running Couchbase Server 7.6.0 or later.
 The dollar sign `$` syntax is supported in all versions of Couchbase Server.
 ****
 
@@ -259,7 +281,7 @@ include::example$settings/param-names.n1ql[tags=statement]
 
 // tag::note-names[]
 The named parameters and named parameter placeholders in this example use a mixture of `@` and `$` symbol prefixes.
-In databases running Couchbase Server 7.6.0 and later, you can use either of these symbols as preferred.
+In clusters running Couchbase Server 7.6.0 and later, you can use either of these symbols as preferred.
 In previous versions of Couchbase Server, you must use the `$` symbol prefix.
 // end::note-names[]
 --
@@ -309,7 +331,7 @@ include::example$settings/param-numbers.n1ql[tags=statement]
 In this case, the first positional parameter value is used for the placeholder numbered `$1`, the second positional parameter value is used for the placeholder numbered `@2`, and so on.
 
 The numbered positional parameter placeholders in this example use a mixture of `@` and `$` symbol prefixes.
-In databases running Couchbase Server 7.6.0 and later, you can use either of these symbols as preferred.
+In clusters running Couchbase Server 7.6.0 and later, you can use either of these symbols as preferred.
 In previous versions of Couchbase Server, you must use the `$` symbol prefix.
 // end::note-numbers[]
 --
