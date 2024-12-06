@@ -2,7 +2,7 @@
 :page-topic-type: reference
 :page-ui-name: {ui-name}
 :page-product-name: {product-name}
-:page-aliases: quick-index-field-options.adoc, child-field-options-reference.adoc, quick-index-supported-languages.adoc
+:page-aliases: quick-index-field-options.adoc, child-field-options-reference.adoc
 :description: When you create a Search index in the {page-ui-name}, you must set options for each collection, object, Extended Attributes (XATTRs) object, or field mapping you add to your index. 
 
 [abstract]
