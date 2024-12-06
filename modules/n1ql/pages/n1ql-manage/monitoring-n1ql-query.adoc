@@ -1,5 +1,6 @@
 = Manage and Monitor Queries
 :example-caption!:
+:alt-markdown-links:
 :description: Monitoring and profiling {sqlpp} queries, query service nodes, and corresponding system resources is very important for smoother operational performance and efficiency of the system.
 
 ifdef::basebackend-html[]
@@ -822,7 +823,7 @@ A completed request is logged if _any_ of the qualifiers are met (logical OR).
 `user`:: Log requests with this user name.
 `context`:: Log requests with this client context ID.
 
-For full details, see xref:n1ql:n1ql-rest-api/admin.adoc#_logging_parameters[Logging parameters].
+For full details, see xref:n1ql-rest-admin:index.adoc#Logging_Parameters[Logging Parameters].
 
 The basic syntax adds a qualifier to the logging parameters, i.e. any existing qualifiers are not removed.
 You can change the value of a logging qualifier by specifying the same qualifier again with a new value.
@@ -941,13 +942,14 @@ ifdef::flag-devex-rest-api[]
 endif::flag-devex-rest-api[]
 * At the <<enable-settings-per-session-or-per-query,request level>>, for individual queries.
 
+[[client_context_id]]
 For more information about Query settings and parameters, see xref:n1ql:n1ql-manage/query-settings.adoc[].
 
 ifdef::flag-devex-rest-api[]
 [#enable-settings-for-a-query-engine]
 === Enable Query Profiling for a Query Node
 
-To activate query profiling at the node level, specify the `profile` setting using the xref:n1ql:n1ql-rest-api/admin.adoc[Admin REST API] (`/admin/settings` endpoint).
+To activate query profiling at the node level, specify the `profile` setting using the xref:n1ql-rest-admin:index.adoc[Admin REST API] (`/admin/settings` endpoint).
 
 .See the current node-level query settings
 ====
@@ -1026,7 +1028,7 @@ endif::flag-devex-rest-api[]
 To activate profiling at the request level, you can:
 
 ifdef::flag-devex-rest-api[]
-* Specify the `profile` setting using the xref:n1ql:n1ql-rest-api/index.adoc[Query REST API] (`/query/service` endpoint).
+* Specify the `profile` setting using the xref:n1ql-rest-query:index.adoc[Query REST API] (`/query/service` endpoint).
 endif::flag-devex-rest-api[]
 * Specify the `profile` setting using the xref:n1ql:n1ql-intro/cbq.adoc[cbq] command line tool.
 

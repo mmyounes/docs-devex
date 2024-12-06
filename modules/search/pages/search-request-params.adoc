@@ -21,9 +21,12 @@ A Search request can contain the following properties:
 |====
 |Property |Type |Required? |Description
 
-|[[query]]query |Object |Yes a|
+|[[query]]query |Object |Regular or Hybrid Search Only a|
 
 An object that contains the properties for one of the supported query types.
+
+The `query` object is required if you want to run a regular search, or a hybrid search that includes a xref:vector-search:vector-search.adoc[Vector Search] query.
+If your cluster is running Couchbase Server version 7.6.2 and later, you do not need to include the `query` object for a pure Vector Search query. 
 
 For more information about how to configure the `query` object, see <<query-object,>>.
 
@@ -45,6 +48,9 @@ Set the total number of results to return for a single page of search results.
 
 If you provide both the `size` and `limit` properties, the Search Service uses the `size` value.
 
+If you do not provide a `from`, `size`, or other pagination settings in your query, the Search Service defaults to a `size` value of `10` and a `from` value of `0`.
+This means the Search Service does not offset results, and returns the first `10` matches to your query.
+
 |from/offset |Integer |No a|
 
 Set an offset value to change where pagination starts for search results, based on the Search query's <<sort,>>. 
@@ -52,6 +58,9 @@ Set an offset value to change where pagination starts for search results, based 
 For example, if you set a `size` value of `5` and a `from` value of `10`, the Search query returns results 11 through 15 on a page. 
 
 If you provide both the `from` and `offset` properties, the Search Service uses the `from` value.
+
+If you do not provide a `from`, `size`, or other pagination settings in your query, the Search Service defaults to a `size` value of `10` and a `from` value of `0`.
+This means the Search Service does not offset results, and returns the first `10` matches to your query.
 
 |highlight |Object |No a|
 
@@ -83,9 +92,10 @@ To create an explanation for a search result's score in search results, set `exp
 
 To turn off explanations for search result scoring, set `explain` to `false`.
 
-|sort |Array |No a|
+|[[sort-array]]sort |Array |No a|
 
-Contains an array of strings or JSON objects to set how to sort search results. 
+Contains an array of strings or JSON objects to set how to sort search results.
+By default, the Search Service sorts results based on score values, from highest to lowest.
 
 The strings can be: 
 
@@ -114,29 +124,37 @@ To turn on document relevancy scoring in search results, remove the `score` prop
 
 |search_after |Array |No a|
 
-NOTE: If you use `search_after` in a search request, you can't use `search_before`. Both properties are included in the example code to show the correct syntax.
+NOTE: If you use `search_after` in a search request, you cannot use `search_before`. Both properties are included in the example code to show the correct syntax.
 
 Use `search_after` with `from/offset` and `sort` to control pagination in search results. 
 
-Give a value for each string or JSON object in the `sort` array to the `search_after` array.
+For example, if you had a set of 10 documents to sort based on `_id` values of 1-10, with `from` set to `2` and `search_after` set to `8`, documents 9-10 appear on the same page. 
+
+You must give a value for each string or JSON object in the `sort` array to the `search_after` array.
 The Search Service starts search result pagination after the document with those values. 
 
-You must provide the values in the same order that they appear in the `sort` array. 
+You must provide the values in the same order that they appear in the `sort` array.
+Your `sort` array must force a total order on your search results. 
 
-For example, if you had a set of 10 documents to sort based on `_id` values of 1-10, with `from` set to `2` and `search_after` set to `8`, documents 9-10 appear on the same page. 
+Use `search_after` to make the memory requirements of deeper page searches more manageable, when compared to using only `from/offset`.
+`search_after` lets you start your search results from a specific result, rather than needing to process a number of search results to skip.
 
 |search_before |Array |No a|
 
-NOTE: If you use `search_before` in a search request, you can't use `search_after`. Both properties are included in the example code to show the correct syntax.
+NOTE: If you use `search_before` in a search request, you cannot use `search_after`. Both properties are included in the example code to show the correct syntax.
 
 Use `search_before` with `from/offset` and `sort` to control pagination in search results.
 
-Give a value for each string or JSON object in the `sort` array to the `search_before` array.
+For example, if you had a set of 10 documents to sort based on `_id` values of 1-10, with `from` set to `2` and `search_before` set to `8`, documents 2-6 appear on the same page. 
+
+You must give a value for each string or JSON object in the `sort` array to the `search_before` array.
 The Search Service starts search result pagination before the document with those values. 
 
-You must provide the values in the same order that they appear in the `sort` array. 
+You must provide the values in the same order that they appear in the `sort` array.
+Your `sort` array must force a total order on your search results.
 
-For example, if you had a set of 10 documents to sort based on `_id` values of 1-10, with `from` set to `2` and `search_before` set to `8`, documents 2-6 appear on the same page. 
+Use `search_before` to make the memory requirements of deeper page searches more manageable, when compared to using only `from/offset`.
+`search_before` lets you start your search results back from a specific result, rather than needing to process a number of search results to skip.
 
 |[[collections]]collections |Array |No |Contains an array of strings that specify the collections where you want to run the query. 
 
@@ -154,8 +172,7 @@ Add the `knn` array with at least one object to run a Vector Search query:
 include::example$run-search-full-request.jsonc[tag=knn]
 ----
 
-NOTE: To run a Vector Search query, you must still include a `query` object with your Search request. 
-To return only results from your Vector Search query, you can set the `query` object to a <<match_none,match_none>> query.
+NOTE: If your cluster is running Couchbase Server version 7.6.2 and later, to return only results from your Vector Search query, do not include a `query` object with your Search request.
 To run a hybrid query that uses regular Search Service parameters together with Vector Search to return results, see the <<query-object,Query Object>> section. 
 
 An object in the `knn` array can contain the following properties: 
@@ -1721,8 +1738,10 @@ include::example$query-special.jsonc[tag=match_all]
 | [[match_none]]match_none
 | Object
 a| Use the `match_none` object as the only property in your `query` object to return no documents from the Search index in search results.
+ 
+If you add a <<knn,knn object>> and a `query` object with the `match_none` object to your request, your search returns only matches to the Vector Search query inside the `knn` object.
+If your cluster is running Couchbase Server version 7.6.2 and later, when running a xref:vector-search:vector-search.adoc[Vector Search] query without a `query` object, the Search Service automatically adds a `query` object with a `match_none` query object to your request.
 
-If you're using the <<knn,knn object>>, the `match_none` object returns only matches to the Vector Search query inside the `knn` object. 
 a|
 .Return no documents from the Search index
 [source,json]
@@ -2121,6 +2140,8 @@ The following `sort` object orders search results by the values in `field1`, the
 ----
 include::example$run-search-full-request.jsonc[tag=sort]
 ----
+
+TIP: For the best results with sorting and page navigation in search results, always include your document ID values (`_id` or `-_id`) as the final sort criteria in your `sort` object.
 
 The `sort` object can contain the following string values: 
 
