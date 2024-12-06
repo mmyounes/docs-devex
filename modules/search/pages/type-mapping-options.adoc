@@ -2,7 +2,7 @@
 :page-topic-type: reference
 :page-ui-name: {ui-name}
 :page-product-name: {product-name}
-:page-aliases: quick-index-field-options.adoc
+:page-aliases: quick-index-field-options.adoc, child-field-options-reference.adoc, quick-index-supported-languages.adoc
 :description: When you create a Search index in the {page-ui-name}, you must set options for each collection, object, Extended Attributes (XATTRs) object, or field mapping you add to your index. 
 
 [abstract]
@@ -246,7 +246,7 @@ In Advanced mode, it was named *Store*.
 // In Advanced mode, this was not available as a single option.
 // You needed to turn on both *Include Term Vectors* and *Store*. 
 
-|Support phrase matching 
+|[[#term-vectors]]Support phrase matching 
 a| To support searches for whole phrases, select *Support phrase matching*. 
 
 To turn off phrase matching, clear *Support phrase matching*.

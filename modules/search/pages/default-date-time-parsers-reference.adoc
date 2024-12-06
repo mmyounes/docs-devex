@@ -5,7 +5,7 @@
 [abstract]
 {description}
 
-You can set a xref:customize-index.adoc#date-time[default date/time parser] for your Search index, or set a date/time parser when you xref:create-child-field.adoc[create a child field] with a `datetime` type. 
+You can set a xref:customize-index.adoc#date-time[default date/time parser] for your Search index, or set a date/time parser when you xref:create-type-mapping.adoc#field[create a single document field mapping] with a `datetime` type. 
 
 The following default date/time parsers are available: 
 
@@ -13,22 +13,31 @@ The following default date/time parsers are available:
 | Date/Time Parser | Description
 
 | datetime optional 
-a| The default date/time parser. 
+a| The default date/time parser.
+
+The default date/time parser can parse dates in the following formats: 
+
+* `%Y-%m-%dT%H:%M:%S.%N%z:M`: For example, a date/time string like `2023-09-15T14:24:50.1567+05:30`
+* `%Y-%m-%dT%H:%M:%S%z:M: For example, a date/time string like `2023-09-15T14:24:50+05:30`
+* `%Y-%m-%dT%H:%M:%S`: For example, a date/time string like `2023-09-15T14:24:50`
+* `%Y-%m-%d %H:%M:%S`: For example, a date/time string like `2023-09-15 14:24:50`
+* `%Y-%m-%d %H:%M:%S %z`: For example, a date/time string like `2023-09-15 14:24:50 +0530`
+* `%Y-%m-%d`: For example, a date/time string like `2023-09-15`
 
 | disabled 
-a|
+| The default date/time parser is disabled. 
 
 | unix_micro
-a|
+| For date/time data formatted as the number of microseconds since the Unix epoch `1970-01-01T00:00:00Z`.
 
 | unix_milli
-a|
+| For date/time data formatted as the number of milliseconds since the Unix epoch `1970-01-01T00:00:00Z`.
 
 | unix_nano
-a|
+| For date/time data formatted as the number of nanoseconds since the Unix epoch `1970-01-01T00:00:00Z`.
 
 | unix_sec
-a| 
+| For date/time data formatted as the number of seconds since the Unix epoch `1970-01-01T00:00:00Z`.
 
 |====
 
