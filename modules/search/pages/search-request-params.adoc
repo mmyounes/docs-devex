@@ -2,7 +2,7 @@
 :page-topic-type: reference
 :page-ui-name: {ui-name}
 :page-product-name: {product-name}
-:page-aliases: fts:fts-creating-with-curl-http-requests-json-structure.adoc, fts:fts-creating-with-curl-http-requests.adoc, fts:fts-search-request.adoc, fts:fts-supported-queries.adoc, fts:fts-supported-queries-query-string-query.adoc, fts:fts-query-string-syntax.adoc, fts:fts-query-string-syntax-boosting.adoc, fts:fts-query-string-syntax-date-ranges.adoc, fts:fts-query-string-syntax-escaping.adoc, fts:fts-query-string-syntax-field-scoping.adoc, fts:fts-query-string-syntax-match-phrase.adoc, fts:fts-query-string-syntax-match.adoc, fts:fts-query-string-syntax-numeric-ranges.adoc, fts:fts-supported-queries-analytic-query.adoc, fts:fts-supported-queries-match.adoc, fts:fts-supported-queries-match-phrase.adoc, fts:fts-supported-queries-non-analytic-query.adoc, fts:fts-supported-queries-term.adoc, fts:fts-supported-queries-phrase.adoc, fts:fts-supported-queries-prefix-query.adoc, fts:fts-supported-queries-regexp.adoc, fts:fts-supported-queries-fuzzy.adoc, fts:fts-supported-queries-wildcard.adoc, fts:fts-supported-queries-compound-query.adoc, fts:fts-supported-queries-conjuncts-disjuncts.adoc, fts:fts-supported-queries-boolean-field-query.adoc, fts:fts-supported-queries-range-query.adoc, fts:fts-supported-queries-numeric-range.adoc, fts:fts-supported-queries-date-range.adoc, fts:fts-supported-queries-term-range.adoc, fts:fts-supported-queries-geospatial.adoc, fts:fts-supported-queries-geopoint-spatial.adoc, fts:fts-supported-queries-geo-point-distance.adoc, fts:fts-supported-queries-geo-bounded-rectangle.adoc, fts:fts-supported-queries-geo-bounded-polygon.adoc, fts:fts-supported-queries-geojson-spatial.adoc, fts:fts-queryshape-point.adoc, fts:fts-queryshape-linestring.adoc, fts:fts-queryshape-polygon.adoc, fts:fts-queryshape-multipoint.adoc, fts:fts-queryshape-multilinestring.adoc, fts:fts-queryshape-multipolygon.adoc, fts:fts-queryshape-geometrycollection.adoc, fts:fts-queryshape-circle.adoc, fts:fts-queryshape-envelope.adoc, fts:fts-supported-queries-special-query.adoc, fts:fts-supported-queries-match-all.adoc, fts:fts-supported-queries-match-none.adoc
+:page-aliases: fts:fts-creating-with-curl-http-requests-json-structure.adoc, fts:fts-creating-with-curl-http-requests.adoc, fts:fts-pagination.adoc, fts:fts-search-request.adoc, fts:fts-supported-queries.adoc, fts:fts-supported-queries-query-string-query.adoc, fts:fts-query-string-syntax.adoc, fts:fts-query-string-syntax-boosting.adoc, fts:fts-query-string-syntax-date-ranges.adoc, fts:fts-query-string-syntax-escaping.adoc, fts:fts-query-string-syntax-field-scoping.adoc, fts:fts-query-string-syntax-match-phrase.adoc, fts:fts-query-string-syntax-match.adoc, fts:fts-query-string-syntax-numeric-ranges.adoc, fts:fts-supported-queries-analytic-query.adoc, fts:fts-supported-queries-match.adoc, fts:fts-supported-queries-match-phrase.adoc, fts:fts-supported-queries-non-analytic-query.adoc, fts:fts-supported-queries-term.adoc, fts:fts-supported-queries-phrase.adoc, fts:fts-supported-queries-prefix-query.adoc, fts:fts-supported-queries-regexp.adoc, fts:fts-supported-queries-fuzzy.adoc, fts:fts-supported-queries-wildcard.adoc, fts:fts-supported-queries-compound-query.adoc, fts:fts-supported-queries-conjuncts-disjuncts.adoc, fts:fts-supported-queries-boolean-field-query.adoc, fts:fts-supported-queries-range-query.adoc, fts:fts-supported-queries-numeric-range.adoc, fts:fts-supported-queries-date-range.adoc, fts:fts-supported-queries-term-range.adoc, fts:fts-supported-queries-geospatial.adoc, fts:fts-supported-queries-geopoint-spatial.adoc, fts:fts-supported-queries-geo-point-distance.adoc, fts:fts-supported-queries-geo-bounded-rectangle.adoc, fts:fts-supported-queries-geo-bounded-polygon.adoc, fts:fts-supported-queries-geojson-spatial.adoc, fts:fts-queryshape-point.adoc, fts:fts-queryshape-linestring.adoc, fts:fts-queryshape-polygon.adoc, fts:fts-queryshape-multipoint.adoc, fts:fts-queryshape-multilinestring.adoc, fts:fts-queryshape-multipolygon.adoc, fts:fts-queryshape-geometrycollection.adoc, fts:fts-queryshape-circle.adoc, fts:fts-queryshape-envelope.adoc, fts:fts-supported-queries-special-query.adoc, fts:fts-supported-queries-match-all.adoc, fts:fts-supported-queries-match-none.adoc
 :description: You can add additional properties to a Search request to control how the Search Service returns results. 
 :page-toclevels: 3
 
@@ -57,6 +57,9 @@ The Search Service returns the `size` number of results:
 
 The `size` property is added by default to all Search requests, if not otherwise specified, with a value of `10`.
 
+If you do not provide a `from`, `size`, or other pagination settings in your query, the Search Service defaults to a `size` value of `10` and a `from` value of `0`.
+This means the Search Service does not offset results, and returns the first `10` matches to your query.
+
 |from/offset |Integer |No a|
 
 Set an offset value to change where pagination starts for search results, based on the Search query's <<sort,>>. 
@@ -66,6 +69,9 @@ For example, if you set a `size` value of `5` and a `from` value of `10`, the Se
 If you provide both the `from` and `offset` properties, the Search Service uses the `from` value.
 
 The `from` property is added by default to all Search requests, if not otherwise specified, with a value of `0`.
+
+If you do not provide a `from`, `size`, or other pagination settings in your query, the Search Service defaults to a `size` value of `10` and a `from` value of `0`.
+This means the Search Service does not offset results, and returns the first `10` matches to your query.
 
 |highlight |Object |No a|
 
@@ -99,7 +105,8 @@ To turn off explanations for search result scoring, set `explain` to `false`.
 
 |[[sort_arr]]sort |Array |No a|
 
-Contains an array of strings or JSON objects to set how to sort search results. 
+Contains an array of strings or JSON objects to set how to sort search results.
+By default, the Search Service sorts results based on score values, from highest to lowest.
 
 The strings can be: 
 
@@ -133,6 +140,7 @@ Use `search_after` with `from/offset` and `sort` to control pagination in search
 
 Give a value for each string or JSON object in the <<sort_arr,sort array>> to the `search_after` array.
 You must provide the values in the same order that they appear in the <<sort_arr,sort array>>.
+Your `sort` array must force a total order on your search results.
 Values in the `search_after` array must be strings.
 You cannot use `search_after` with numbers or other field data types - if your `sort` array includes fields with a `date` or `number` type, you cannot use `search_after`. 
 Only result relevancy score values can be entered as strings in the array. 
@@ -144,6 +152,9 @@ For example, if you had a set of 10 documents to sort based on `_id` values of 1
 To reduce the resource costs of deeper pagination on your Search queries, try to always include your document ID values as the final sort criteria in your <<sort_arr,sort array>>. 
 Set the `search_after` property to include the values from the last result on your previous page of search results to effectively paginate. 
 
+Use `search_after` to make the memory requirements of deeper page searches more manageable, when compared to using only `from/offset`.
+`search_after` lets you start your search results from a specific result, rather than needing to process a number of search results to skip.
+
 |[[search_before]]search_before |Array |No a|
 
 NOTE: If you use `search_before` in a search request, you can't use `search_after`.
@@ -153,6 +164,7 @@ Use `search_before` with `from/offset` and `sort` to control pagination in searc
 
 Give a value for each string or JSON object in the `sort` array to the `search_before` array.
 You must provide the values in the same order that they appear in the `sort` array.
+Your `sort` array must force a total order on your search results.
 Values in the `search_before` array must be strings.
 You cannot use `search_before` with numbers or other field data types - if your `sort` array includes fields with a `date` or `number` type, you cannot use `search_before`. 
 Only result relevancy score values can be entered as strings in the array.
@@ -163,6 +175,9 @@ For example, if you had a set of 10 documents to sort based on `_id` values of 1
 
 To reduce the resource costs of deeper pagination on your Search queries, try to always include your document ID values as the final sort criteria in your <<sort_arr,sort array>>. 
 Set the `search_before` property to include the values from the last result on your previous page of search results to effectively paginate. 
+
+Use `search_before` to make the memory requirements of deeper page searches more manageable, when compared to using only `from/offset`.
+`search_before` lets you start your search results back from a specific result, rather than needing to process a number of search results to skip.
 
 |[[collections]]collections |Array |No |Contains an array of strings that specify the collections where you want to run the query. 
 
