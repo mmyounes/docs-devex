@@ -133,11 +133,16 @@ Vector Search uses both 8bit and 4bit scalar quantization for indexes, based on 
 
 == Search Request Processing 
 
-The Search Service uses a scatter-gather process for running Search queries, when there are multiple nodes in the cluster running the Search Service.
+The Search Service uses a scatter-gather process for running all Search queries, when there are multiple nodes in the cluster running the Search Service.
 
 The Search Service node that receives the Search request is assigned as the coordinating node.
-Using https://grpc.io/[gRPC^], the coordinating node scatters the request to all other partitions for the Search index in the request across other nodes.
+Using https://grpc.io/[gRPC^], the coordinating node scatters the request to all other partitions for the Search or Vector Search index in the request across other nodes.
 The coordinating node applies filters to the results received from the other partitions, and returns the final result set.
+
+Results are scored, and based on the xref:search:search-request-params.adoc#sort[Sort Object] provided in the Search request, returned in a list.
+
+For a Vector Search query, search results include the top `k` nearest neighbor vectors to the vector in the Search query. 
+For more information about how results are scored and returned for Search requests, see xref:search:run-searches.adoc#scoring[Scoring for Search Queries].
 
 == See Also
 
