@@ -48,7 +48,7 @@ Vector Search specifically uses https://faiss.ai/index.html[FAISS^] indexes.
 Any vectors inside your documents are indexed using FAISS, to create a new query vector that can be searched for similar vectors inside your Vector Search index.
 
 Vector Search chooses the best https://github.com/facebookresearch/faiss/wiki/Faiss-indexes[FAISS index class^], or vector search algorithm, for your data, and automatically tunes parameters to provide a balance of recall and latency.
-You can choose to prioritize recall or latency with the xref:search:child-field-options-reference.adoc#optimized[Optimized For] setting on your index.
+You can choose to prioritize recall, latency, or memory efficiency with the xref:search:child-field-options-reference.adoc#optimized[Optimized For] setting on your index.
 You can also choose to xref:fine-tune-vector-search.adoc[fine tune your Vector Search queries] to override the default balancing for your index, and change the number of centroids or probes searched in a query. 
 
 The FAISS indexes created for your vector data can be: 
@@ -106,11 +106,11 @@ The total number of cells is the *nlist* parameter.
 Every cell has a centroid.
 Every vector in the processed dataset is assigned to a cell that corresponds to its nearest centroid. 
 
-In an IVF index, a Vector Search first tries to find the cell that the query vector belongs to.
-After it knows the cell to search, Vector Search uses another algorithm to find out the exact vector that's closest to the query vector in that cell. 
+In an IVF index, Vector Search first tries to find a centroid vector closest to the query vector.
+After finding this closest centroid vector, Vector Search uses the default `nprobe` and `max_codes` values to search over adjoining cells to the closest centroid and find the top `k` number of vectors. 
 
-The result of an IVF index search can be less accurate, as the nearest vector to a query vector can be in a different cell than the chosen cell.
-You can increase accuracy by changing the *nprobe* parameter when you xref:fine-tune-vector-search.adoc[fine tune your Vector Search queries].
+IVF index searches are not exhaustive searches.
+You can increase accuracy by changing the `max_nprobe_pct` parameter or `max_codes_pct` when you xref:fine-tune-vector-search.adoc[fine tune your Vector Search queries].
 
 Larger IVF indexes automatically train to learn the data distribution of your vectors, and the centroids of cells in your dataset.
 The training data helps to encode and compress the vectors in your index with <<scalar-quant,>>.
