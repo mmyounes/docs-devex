@@ -7,6 +7,7 @@
 {description}
 
 A Vector Search index still relies on <<sync,>> and uses <<segments,>> to manage merging and persisting data to disk in your cluster.
+All changes from DCP and the Data Service are introduced to a Search index in batches, which are further managed by segments. 
 
 [#sync]
 == Synchronization with Database Change Protocol (DCP) and the Data Service
@@ -55,6 +56,29 @@ The FAISS indexes created for your vector data can be:
 * <<flat,>>
 * <<ivf,>>
 
+The specific type of index used depends on the number of vectors in your dataset: 
+
+|====
+| Vector Count | Index Types | Description
+
+| >=10,000 
+| IVF with scalar quantization
+a| Vectors are indexed with <<ivf,>> indexes and <<scalar-quant,>>.
+
+If xref:search:child-field-options-reference.adoc#optimized[Optimized For] is set to *recall* or *latency*, Vector Search uses 8bit scalar quantization.
+If set to *memory-efficient*, Vector Search uses 4bit scalar quantization.
+
+| >=1000
+| IVF with Flat
+| Vectors are indexed with <<ivf,>> combined with <<flat,>>. 
+Indexes do not use <<scalar-quant,>>. 
+
+| <1000
+| Flat
+| Vectors are indexed with <<flat,>>.
+Indexes do not use <<scalar-quant,>>. 
+|====
+
 [#flat]
 === FLAT Indexes
 
@@ -92,7 +116,7 @@ Larger IVF indexes automatically train to learn the data distribution of your ve
 The training data helps to encode and compress the vectors in your index with <<scalar-quant,>>.
 All training occurs during building and merging <<segments,>>.
 
-IVF indexes that also use flat indexing automatically train to determine the centroids of cells, but still uses exact vector comparisons within each cell.
+IVF indexes that also use flat indexing automatically train to determine the centroids of cells, but still use exact vector comparisons within each cell.
 Training still occurs while building and merging <<segments,>>. 
 
 [#scalar-quant]
@@ -103,7 +127,9 @@ Vector Search uses scalar quantization on large datasets to reduce the size of y
 Scalar quantization is an important data compression technique that turns the floating point values that could be present in a large vector into low-dimensional integers.
 For example, a float32 value could be reduced to an int8 value. 
 
-Scalar quantization in Vector Search does not have a significant effect on the recall, or accuracy, of query results on large datasets. 
+Scalar quantization in Vector Search does not have a significant effect on the recall, or accuracy, of query results on large datasets.
+
+Vector Search uses both 8bit and 4bit scalar quantization for indexes, based on your xref:search:child-field-options-reference.adoc#optimized[Optimized For] setting.
 
 == Search Request Processing 
 
